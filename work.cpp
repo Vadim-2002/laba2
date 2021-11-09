@@ -57,20 +57,63 @@ void Ellipse::drow()
     {
         for (int j = 0; j < a; j++)
             printf(" ");
-        printf("*\n");
+        printf("#\n");
     }
 
-    for (int i = 0; i < 2*a; i++)
-        printf("*");
+    for (int i = 0; i < 2*a + 1; i++)
+        printf("#");
     printf("\n");
-    
+
     for (int i = 0; i < b; i++)
     {
         for (int j = 0; j < a; j++)
             printf(" ");
-        printf("*\n");
+        printf("#\n");
     }
 }
+
+class ColoredEllipse: public Ellipse
+{
+    protected:
+        int color;
+
+    public:
+        ColoredEllipse() : Ellipse()
+        {
+            printf("\nColoredEllipse()\n");
+            
+            color = 0;
+        }
+
+        ColoredEllipse(int x, int y, int a, int b, int color) : Ellipse(x, y, a, b)
+        {
+            printf("\nColoredEllipse(int x, int y, int a, int b, int color)\n");
+
+            this->color = color;
+        }
+
+        ColoredEllipse(ColoredEllipse &object)
+        {
+            printf("\nColoredEllipse(ColoredEllipse &object)\n");
+
+            x = object.x;
+            y = object.y;
+            a = object.a;
+            b = object.b;
+            color = object.color;
+        }
+
+        ~ColoredEllipse()
+        {
+            printf("\nx = %d, y = %d, a = %d, b = %d, color = %d\n", x, y, a, b, color);
+            printf("\n~ColoredEllipse()\n");
+        }
+
+        void change_color(int new_color)
+        {
+            color = new_color;
+        }
+};
 
 int main()
 {
@@ -94,6 +137,11 @@ int main()
     printf("\nEccentricity = %f\n", ellipse.eccentricity());
 
     ellipse.drow();
+
+    ColoredEllipse* e = new ColoredEllipse(0, 0, 4, 5, 66);
+    e->change_color(99);
+
+    delete e;
 
     system("pause");
     return 0;
