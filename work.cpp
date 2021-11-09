@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 class Ellipse
 {
@@ -41,25 +42,33 @@ class Ellipse
             printf("\nx = %d, y = %d, a = %d, b = %d\n", x, y, a, b);
             printf("\n~Ellipse()\n");
         }
+
+        double eccentricity()
+        {
+            return sqrt(1 - (b*b/a/a));
+        }
 };
 
 int main()
 {
     {
-    Ellipse ellipse;
+    Ellipse ellipse1;
     Ellipse ellipse2(5, 5, 20, 10);
     Ellipse ellipse3(ellipse2);
     }
     
     printf("\nDynamically:\n");
 
-    Ellipse* ellipse = new Ellipse();
+    Ellipse* ellipse1 = new Ellipse();
     Ellipse* ellipse2 = new Ellipse(2, 2, 10, 5);
     Ellipse* ellipse3 = new Ellipse(*ellipse2);
     
-    delete ellipse;
+    delete ellipse1;
     delete ellipse2;
     delete ellipse3;
+
+    Ellipse ellipse(0, 0, 5, 5);
+    printf("\nEccentricity = %f\n", ellipse.eccentricity());
 
     system("pause");
     return 0;
