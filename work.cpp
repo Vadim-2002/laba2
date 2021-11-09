@@ -50,8 +50,17 @@ int main()
     Ellipse ellipse2(5, 5, 20, 10);
     Ellipse ellipse3(ellipse2);
     }
+    
+    printf("\nDynamically:\n");
+
+    Ellipse* ellipse = new Ellipse();
+    Ellipse* ellipse2 = new Ellipse(2, 2, 10, 5);
+    Ellipse* ellipse3 = new Ellipse(*ellipse2);
+    
+    delete ellipse;
+    delete ellipse2;
+    delete ellipse3;
 
     system("pause");
-    
     return 0;
 }
