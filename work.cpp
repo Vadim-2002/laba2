@@ -27,7 +27,7 @@ class Ellipse
             this->b = b;
         }
 
-        Ellipse(Ellipse &object)
+        Ellipse(const Ellipse &object)
         {
             printf("\nEllipse(Ellipse &object)\n");
 
@@ -92,7 +92,7 @@ class ColoredEllipse: public Ellipse
             this->color = color;
         }
 
-        ColoredEllipse(ColoredEllipse &object)
+        ColoredEllipse(const ColoredEllipse &object)
         {
             printf("\nColoredEllipse(ColoredEllipse &object)\n");
 
@@ -115,14 +115,58 @@ class ColoredEllipse: public Ellipse
         }
 };
 
+class Cylinder
+{
+    protected:
+        Ellipse* e1;
+        Ellipse* e2;
+    
+    public:
+        Cylinder()
+        {
+            printf("\nCylinder()\n");
+
+            e1 = new Ellipse();
+            e2 = new Ellipse();
+        }
+
+        Cylinder(int x, int y, int a, int b)
+        {
+            printf("\nCylinder(int x, int y, int a, int b)\n");
+
+            e1 = new Ellipse(x, y, a, b);
+            e2 = new Ellipse(x, y, a, b);
+        }
+
+        Cylinder(const Cylinder &c)
+        {
+            printf("\nCylinder(const Cylinder &c)\n");
+
+            e1 = new Ellipse(*(c.e1));
+            e2 = new Ellipse(*(c.e2));
+        }
+
+        ~Cylinder()
+        {
+            printf("\n~Cylinder()\n");
+
+            delete e1;
+            delete e2;
+        }
+};
+
 int main()
 {
+    printf("\nStatically:\n");
+
     {
     Ellipse ellipse1;
     Ellipse ellipse2(5, 5, 20, 10);
     Ellipse ellipse3(ellipse2);
     }
     
+    printf("================================================\n");
+
     printf("\nDynamically:\n");
 
     Ellipse* ellipse1 = new Ellipse();
@@ -133,15 +177,29 @@ int main()
     delete ellipse2;
     delete ellipse3;
 
+    printf("================================================\n");
+
     Ellipse ellipse(0, 0, 5, 5);
     printf("\nEccentricity = %f\n", ellipse.eccentricity());
 
     ellipse.drow();
 
+    printf("================================================\n");
+
     ColoredEllipse* e = new ColoredEllipse(0, 0, 4, 5, 66);
     e->change_color(99);
 
     delete e;
+
+    printf("================================================\n");
+
+    Cylinder* c1 = new Cylinder();
+    Cylinder* c2 = new Cylinder(9, 9, 6, 7);
+    Cylinder* c3 = new Cylinder(*c2);
+    
+    delete c1;
+    delete c2;
+    delete c3;
 
     system("pause");
     return 0;
