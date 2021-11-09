@@ -47,7 +47,30 @@ class Ellipse
         {
             return sqrt(1 - (b*b/a/a));
         }
+
+        void drow();
 };
+
+void Ellipse::drow()
+{
+    for (int i = 0; i < b; i++)
+    {
+        for (int j = 0; j < a; j++)
+            printf(" ");
+        printf("*\n");
+    }
+
+    for (int i = 0; i < 2*a; i++)
+        printf("*");
+    printf("\n");
+    
+    for (int i = 0; i < b; i++)
+    {
+        for (int j = 0; j < a; j++)
+            printf(" ");
+        printf("*\n");
+    }
+}
 
 int main()
 {
@@ -69,6 +92,8 @@ int main()
 
     Ellipse ellipse(0, 0, 5, 5);
     printf("\nEccentricity = %f\n", ellipse.eccentricity());
+
+    ellipse.drow();
 
     system("pause");
     return 0;
